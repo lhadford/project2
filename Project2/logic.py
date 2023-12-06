@@ -39,7 +39,7 @@ class Logic(QMainWindow, Ui_Project2):
                         #makes sure the pin isnt already in use
                         for line in inputFile:
                             line = line.rstrip().split(',')
-                            if line[1] == self.Pin:
+                            if line[1] == self.Pin or self.Pin == '':
                                 raise Exception
                         with open('bank_account_info.csv', 'a', newline='') as csvfile:
                             file_is_empty = os.stat('bank_account_info.csv').st_size == 0
@@ -50,7 +50,11 @@ class Logic(QMainWindow, Ui_Project2):
                             content = csv.writer(csvfile)
                             data = [self.Name, self.Pin, self.balance]
                             content.writerow(data)
+                        if self.Name == '':
+                            raise TypeError
                         self.login()
+                    except TypeError:
+                        self.labelDiscription.setText('Please Enter Name')
                     except:
                         self.labelDiscription.setText('Invalid Pin')
 
@@ -120,6 +124,8 @@ class Logic(QMainWindow, Ui_Project2):
         self.radioButtonSignup.setHidden(True)
         self.radioButtonEnterAccount.setHidden(False)
         self.labelDiscription.setText('Welcome Back, Please Enter your name and PIN to enter your account')
+        self.labelName.setText('Enter Name')
+        self.lineName.setText('')
         self.radioButtonEnterAccount.setText('Enter Account')
 
     def signUp(self)-> None:
@@ -135,6 +141,8 @@ class Logic(QMainWindow, Ui_Project2):
         self.lineName.setHidden(False)
         self.radioButtonLogin.setHidden(True)
         self.radioButtonSignup.setHidden(True)
+        self.labelName.setText('Enter Name')
+        self.lineName.setText('')
         self.radioButtonEnterAccount.setHidden(False)
         self.radioButtonEnterAccount.setText('Sign Up')
     def enterAccount(self)-> None:
