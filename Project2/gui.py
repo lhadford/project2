@@ -10,6 +10,9 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 
 
 class Ui_Project2(object):
+    '''
+    code that creates and customizes the GUI and window's widgets
+    '''
     def setupUi(self, Project2):
         Project2.setObjectName("Project2")
         Project2.resize(600, 700)
